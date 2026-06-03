@@ -55,3 +55,22 @@ $createMonthlySalesTable = "
 ";
 
 $conn->query($createMonthlySalesTable);
+
+$createLeadsTable = "
+    CREATE TABLE IF NOT EXISTS leads (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        user_id INT UNSIGNED NOT NULL,
+        lead_name VARCHAR(150) NOT NULL,
+        lead_email VARCHAR(150) NULL,
+        lead_phone VARCHAR(20) NULL,
+        lead_source VARCHAR(100) NULL,
+        lead_status VARCHAR(50) NOT NULL DEFAULT 'New',
+        note TEXT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT fk_leads_user
+            FOREIGN KEY (user_id) REFERENCES users(id)
+            ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+";
+
+$conn->query($createLeadsTable);
